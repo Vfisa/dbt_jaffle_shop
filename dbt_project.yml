@@ -5,6 +5,12 @@ version: '0.1'
 
 profile: 'jaffle_shop'
 
+# https://docs.getdbt.com/reference/project-configs/quoting
+quoting:
+  database: true
+  schema: true
+  identifier: true
+
 model-paths: ["models"]
 seed-paths: ["seeds"]
 test-paths: ["tests"]
