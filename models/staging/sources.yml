@@ -7,20 +7,16 @@ sources:
       error_after: {count: 30, period: day}
     loaded_at_field: "_timestamp"
 
+    quoting:
+      database: true
+      schema: true
+      identifier: true
+
     tables:
       - name: raw_customers
         description: "Extracted list of customers"
-#        meta: {<dictionary>}
         identifier: "raw_customers"
-#        tests:
-#          - <test>
-#          - ... # declare additional tests
         tags: ["ecommerce", "crm"]
-
-        quoting:
-          database: true
-          schema: true
-          identifier: true
 #        columns:
  #         - name: '"id"'
 #$            tests:
@@ -29,28 +25,10 @@ sources:
 
       - name: raw_orders
         description: "Extracted list of orders"
-#        meta: {<dictionary>}
         identifier: "raw_orders"
-#        tests:
-#          - <test>
-#          - ... # declare additional tests
         tags: ["ecommerce"]
-
-        quoting:
-          database: true
-          schema: true
-          identifier: true
 
       - name: raw_payments
         description: "Extracted list of payments"
-#        meta: {<dictionary>}
         identifier: "raw_payments"
-#        tests:
-#          - <test>
-#          - ... # declare additional tests
         tags: ["ecommerce"]
-
-        quoting:
-          database: true
-          schema: true
-          identifier: true
