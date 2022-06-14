@@ -4,7 +4,7 @@ with source as (
     Normally we would select from the table here, but we are using seeds to load
     our data in this project
     #}
-    select * from {{ source('WORKSPACE_19288457', 'raw_orders') }}
+    select * from {{ source('in.c-dbt_jaffle_shop', 'raw_orders') }}
 
 ),
 
