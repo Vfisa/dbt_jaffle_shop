@@ -1,0 +1,24 @@
+version: 2
+
+exposures:
+- name: "Billed credits per customer [Look]"
+  type: analysis
+  maturity: low
+  url: "https://keboolads.looker.com/looks/150"
+  description: "Billed credits per customer"
+  depends_on:
+  - ref('customers')
+  owner:
+    name: Martin Fiser
+    email: fisa@keboola.com
+
+- name: "Consumption Overview [Dashboard]"
+  type: dashboard
+  maturity: low
+  url: "https://keboolads.looker.com/dashboards/78"
+  description: "Consumption Overview"
+  depends_on:
+  - ref('customers')
+  owner:
+    name: Martin Fiser
+    email: fisa@keboola.com
