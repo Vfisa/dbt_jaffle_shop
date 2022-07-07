@@ -54,6 +54,9 @@ models:
           dimension:
             sql: ${TABLE}.most_recent_order
             description: "Most recent order"
+            time_intervals:
+              - 'default'
+
           metrics:
             most_recent_order_date:
               type: date
