@@ -43,10 +43,8 @@ models:
           dimension:
             sql: ${TABLE}.first_order
             description: "First Order"
-          metrics:
-            most_recent_order_date:
-              type: date
-              sql: "MIN(${first_order})"
+            time_intervals:
+              - 'default'
 
       - name: most_recent_order
         description: "Date (UTC) of a customer's most recent order"
