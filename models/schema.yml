@@ -68,17 +68,17 @@ models:
               type: average
               description: "Average number of orders per customer"
 
-      - name: total_order_amount
+      - name: customer_lifetime_value
         description: "Total value (AUD) of a customer's orders"
         meta:
           metrics:
-            avg_order_amount:
+            avg_clv:
               type: average
               round: 2
-              description: "Average order total"
-            total_sales:
+              description: "Average CLV"
+            total_clv:
               type: sum
-              description: "Order total"
+              description: "Total CLV"
               round: 2
 
   - name: orders
