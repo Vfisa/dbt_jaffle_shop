@@ -1,24 +1,24 @@
 version: 2
 
 exposures:
-- name: "Billed credits per customer [Look]"
+- name: "Customers table in Lightdash"
   type: analysis
   maturity: low
-  url: "https://keboolads.looker.com/looks/150"
-  description: "Billed credits per customer"
+  url: "https://fisa-lightdash.herokuapp.com/projects/6b9193eb-d0f8-482f-a959-f50c99fbf961/"
+  description: "Customers table in Lightdash"
   depends_on:
   - ref('customers')
   owner:
     name: Martin Fiser
     email: fisa@keboola.com
 
-- name: "Consumption Overview [Dashboard]"
-  type: dashboard
+- name: "Orders table in Lightdash"
+  type: analysis
   maturity: low
-  url: "https://keboolads.looker.com/dashboards/78"
-  description: "Consumption Overview"
+  url: "https://fisa-lightdash.herokuapp.com/projects/6b9193eb-d0f8-482f-a959-f50c99fbf961/"
+  description: "Orders table in Lightdash"
   depends_on:
-  - ref('customers')
+  - ref('orders')
   owner:
     name: Martin Fiser
     email: fisa@keboola.com
