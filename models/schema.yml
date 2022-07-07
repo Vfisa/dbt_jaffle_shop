@@ -3,44 +3,115 @@ version: 2
 models:
   - name: customers
     description: This table has basic information about a customer, as well as some derived facts based on a customer's orders
-
+    meta:
+      owner: fisa@keboola.com
+    tags: 
+      - CRM
+      - ecommerce
     columns:
       - name: customer_id
-        description: This is a unique identifier for a customer
+        description: "This is a unique identifier for a customer"
+        meta:
+          metrics:
+            num_unique_customers:
+              type: count_distinct
+              description: "Distinct number of customers"
+          dimension:
+            sql: ${TABLE}.customer_id
+            description: "Unique identifier for a customer"
         tests:
           - unique
           - not_null
 
       - name: first_name
-        description: Customer's first name. PII.
+        description: "Customer's first name. PII."
+        meta:
+          dimension:
+            sql: ${TABLE}.first_name
+            description: "Customer's first name. PII."
 
       - name: last_name
-        description: Customer's last name. PII.
+        description: "Customer's last name. PII."
+        meta:
+          dimension:
+            sql: ${TABLE}.last_name
+            description: "Customer's last name. PII."
 
       - name: first_order
-        description: Date (UTC) of a customer's first order
+        description: "Date (UTC) of a customer's first order"
+        meta:
+          dimension:
+            sql: ${TABLE}.first_order
+            description: "First Order"
+          metrics:
+            most_recent_order_date:
+              type: date
+              sql: "MIN(${first_order})"
 
       - name: most_recent_order
-        description: Date (UTC) of a customer's most recent order
+        description: "Date (UTC) of a customer's most recent order"
+        meta:
+          dimension:
+            sql: ${TABLE}.most_recent_order
+            description: "Most recent order"
+          metrics:
+            most_recent_order_date:
+              type: date
+              sql: "MAX(${most_recent_order})"
+
 
       - name: number_of_orders
-        description: Count of the number of orders a customer has placed
+        description: "Count of the number of orders a customer has placed"
+        meta:
+          metrics:
+            avg_orders_per_customer:
+              type: average
+              description: "Average number of orders per customer"
 
       - name: total_order_amount
-        description: Total value (AUD) of a customer's orders
+        description: "Total value (AUD) of a customer's orders"
+        meta:
+          metrics:
+            avg_order_amount:
+              type: average
+              round: 2
+              description: "Average order total"
+            total_sales:
+              type: sum
+              description: "Order total"
+              round: 2
 
   - name: orders
-    description: This table has basic information about orders, as well as some derived facts based on payments
-
+    description: "This table has basic information about orders, as well as some derived facts based on payments"
+    meta:
+      owner: fisa@keboola.com
+    tags:
+      - ecommerce
     columns:
       - name: order_id
         tests:
           - unique
           - not_null
-        description: This is a unique identifier for an order
+        description: "This is a unique identifier for an order"
+        meta:
+          metrics:
+            num_unique_orders:
+              type: count_distinct
+              description: "Distinct number of orders"
+          dimension:
+            sql: ${TABLE}.order_id
+            description: "Unique identifier for an order"
 
       - name: customer_id
-        description: Foreign key to the customers table
+        description: "Foreign key to the customers table"
+        meta:
+          metrics:
+            num_unique_orders:
+              type: count_distinct
+              description: "Distinct number of customers"
+          dimension:
+            sql: ${TABLE}.customer_id
+            description: "Unique identifier for a customer"
         tests:
           - not_null
           - relationships:
@@ -48,35 +119,100 @@ models:
               field: customer_id
 
       - name: order_date
-        description: Date (UTC) that the order was placed
+        description: "Date (UTC) that the order was placed"
+        meta:
+          dimension:
+            sql: ${TABLE}.order_date
+            description: "Order status"
+          metrics:
+            max_order_date:
+              type: date
+              sql: "MAX(${order_date})"
+            min_order_date:
+              type: date
+              sql: "MIN(${order_date})"
 
       - name: status
         description: '{{ doc("orders_status") }}'
+        meta:
+          dimension:
+            sql: ${TABLE}.status
+            description: "Order status"
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
 
       - name: amount
-        description: Total amount (AUD) of the order
+        description: "Total amount (AUD) of the order"
         tests:
           - not_null
+        meta:
+          metrics:
+            avg_order_amount:
+              type: average
+              round: 2
+              description: "Average order total"
+            order_total:
+              type: sum
+              description: "Order total"
+              round: 2
 
       - name: credit_card_amount
-        description: Amount of the order (AUD) paid for by credit card
+        description: "Amount of the order (AUD) paid for by credit card"
         tests:
           - not_null
+        meta:
+          metrics:
+            avg_card_amount:
+              type: average
+              round: 2
+              description: "Average card total"
+            card_total:
+              type: sum
+              description: "Card total"
+              round: 2
 
       - name: coupon_amount
-        description: Amount of the order (AUD) paid for by coupon
+        description: "Amount of the order (AUD) paid for by coupon"
         tests:
           - not_null
+        meta:
+          metrics:
+            avg_coupon_amount:
+              type: average
+              round: 2
+              description: "Average coupon total"
+            coupon_total:
+              type: sum
+              description: "Coupon total"
+              round: 2
 
       - name: bank_transfer_amount
-        description: Amount of the order (AUD) paid for by bank transfer
+        description: "Amount of the order (AUD) paid for by bank transfer"
         tests:
           - not_null
+        meta:
+          metrics:
+            avg_transfer_amount:
+              type: average
+              round: 2
+              description: "Average transfer total"
+            transfer_total:
+              type: sum
+              description: "Transfer total"
+              round: 2
 
       - name: gift_card_amount
-        description: Amount of the order (AUD) paid for by gift card
+        description: "Amount of the order (AUD) paid for by gift card"
         tests:
           - not_null
+        meta:
+          metrics:
+            avg_giftcard_amount:
+              type: average
+              round: 2
+              description: "Average giftcard total"
+            giftcard_total:
+              type: sum
+              description: "Giftcard total"
+              round: 2
