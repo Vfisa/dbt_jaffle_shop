@@ -57,12 +57,6 @@ models:
             time_intervals:
               - 'default'
 
-          metrics:
-            most_recent_order_date:
-              type: date
-              sql: "MAX(${most_recent_order})"
-
-
       - name: number_of_orders
         description: "Count of the number of orders a customer has placed"
         meta:
