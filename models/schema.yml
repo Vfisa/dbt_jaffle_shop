@@ -124,13 +124,13 @@ models:
           dimension:
             sql: ${TABLE}.order_date
             description: "Order status"
-          metrics:
-            max_order_date:
-              type: date
-              sql: "MAX(${order_date})"
-            min_order_date:
-              type: date
-              sql: "MIN(${order_date})"
+#          metrics:
+#            max_order_date:
+#              type: date
+#              sql: "MAX(${order_date})"
+#            min_order_date:
+#              type: date
+#              sql: "MIN(${order_date})"
 
       - name: status
         description: '{{ doc("orders_status") }}'
