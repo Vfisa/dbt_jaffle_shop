@@ -23,6 +23,12 @@ clean-targets:
     - "dbt_modules"
     - "logs"
 
+#tests:
+#  jaffle_shop: #https://docs.getdbt.com/reference/test-configs#general-configurations
+#    +store_failures: true  # all tests
+#    +database: KEBOOLA_7167
+#    +schema: WORKSPACE_19288457
+
 require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 models:
