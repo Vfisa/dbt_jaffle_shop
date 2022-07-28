@@ -5,26 +5,40 @@ models:
     columns:
       - name: customer_id
         tests:
-          - unique
-          - not_null
+          - unique:
+              config:
+                severity: error
+          - not_null:
+              config:
+                severity: error
 
   - name: stg_orders
     columns:
       - name: order_id
         tests:
-          - unique
-          - not_null
+          - unique:
+              config:
+                severity: error
+          - not_null:
+              config:
+                severity: error
       - name: status
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+              config:
+                severity: error
 
   - name: stg_payments
     columns:
       - name: payment_id
         tests:
-          - unique
-          - not_null
+          - unique:
+              config:
+                severity: error
+          - not_null:
+              config:
+                severity: error
       - name: payment_method
         tests:
           - accepted_values:
